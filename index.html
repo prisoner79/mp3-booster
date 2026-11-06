@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1121" />
+  <title>BassForge — Deep Bass & Clear Vocals</title>
+  <style>
+    :root{color-scheme:dark;--bg:#090e1c;--panel:#121b30;--panel2:#172239;--line:#273750;--text:#f0f6ff;--muted:#9babca;--accent:#6df4c4;--blue:#6c9ffc;--pink:#ad82fb;--danger:#fc8c9b;--shadow:0 18px 70px #04081388}
+    *{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(ellipse 100% 55% at 75% -18%,#173b5770,transparent 68%),radial-gradient(ellipse 60% 40% at 5% 20%,#3827633a,transparent 82%),var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+    button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,.drop:focus-visible{outline:3px solid #8bf4d9;outline-offset:3px}
+    .page{max-width:1110px;margin:auto;padding:25px 24px 55px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:60px}.brand{display:flex;align-items:center;gap:12px;font-size:19px;font-weight:800;letter-spacing:-.5px}.logo{height:38px;width:38px;display:grid;place-items:center;border:1px solid #89f7d16e;border-radius:12px;background:#78efc31a;color:var(--accent)}.status{font-size:12px;font-weight:650;color:#b4cfda;background:#19283b;border:1px solid #2d4051;padding:6px 12px;border-radius:999px}
+    .hero{text-align:center;max-width:760px;margin:0 auto 28px}.eyebrow{font-size:12px;letter-spacing:2.6px;text-transform:uppercase;color:var(--accent);font-weight:800}.hero h1{font-size:clamp(35px,5.8vw,64px);letter-spacing:-2.5px;line-height:1.09;margin:14px 0 15px;font-weight:800}.gradient{background:linear-gradient(95deg,var(--accent),#8dd6fe 55%,#c09dff);color:transparent;background-clip:text}.hero p{color:var(--muted);font-size:16px;margin:0 auto;max-width:590px}
+    .drop{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:186px;position:relative;gap:8px;margin:30px 0 18px;border:1.5px dashed #588e9b;border-radius:20px;background:linear-gradient(125deg,#1b334342,#212a4a4a);cursor:pointer;transition:.2s ease}.drop:hover,.drop.drag{border-color:var(--accent);background:#193c3b6a;transform:translateY(-1px)}.drop svg{color:var(--accent)}.drop strong{font-size:17px}.drop small{font-size:12px;color:var(--muted)}.drop small{max-width:90%;text-align:center}.drop input{display:none}
+    .main-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(300px,.85fr);gap:18px}.panel{border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#162239e9,#121a2fe9);box-shadow:var(--shadow);padding:23px;min-width:0}.panel h2{font-size:17px;letter-spacing:-.3px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:3px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:18px}
+    .file-name{max-width:330px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d4e2ff;font-weight:650}.track-row{display:flex;align-items:center;gap:12px;min-width:0}.track-icon{background:#243d56;color:var(--accent);height:43px;width:43px;flex-shrink:0;border-radius:12px;display:grid;place-items:center}.track-info{min-width:0}.pill{color:#a7ffda;border:1px solid #3b795f;font-weight:650;border-radius:8px;padding:4px 9px;background:#1a3c2d;font-size:11px;white-space:nowrap}
+    canvas{width:100%;display:block}.wave{border-radius:13px;margin:20px 0 15px;height:140px;background:linear-gradient(120deg,#0d1e32,#14253c);border:1px solid #26384a}.controls{display:flex;align-items:center;gap:12px}.play{height:43px;width:43px;border:0;background:var(--accent);color:#071d18;border-radius:50%;font-size:17px;font-weight:800;flex-shrink:0;display:grid;place-items:center}.play:disabled{opacity:.45;cursor:not-allowed}.timeline{flex:1;min-width:0}.time-row{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+    input[type=range]{width:100%;height:6px;appearance:none;-webkit-appearance:none;border-radius:99px;outline:none;background:linear-gradient(to right,var(--accent) 0%,var(--accent) var(--fill,50%),#34445e var(--fill,50%),#34445e 100%);accent-color:var(--accent);cursor:pointer}input[type=range]::-webkit-slider-thumb{appearance:none;height:16px;width:16px;background:#e3fef3;border:3px solid #64d8b2;border-radius:50%;box-shadow:0 0 0 3px #65d9b21b}input[type=range]::-moz-range-thumb{height:11px;width:11px;background:#e3fef3;border:3px solid #64d8b2;border-radius:50%}
+    .eq{height:168px;background:linear-gradient(145deg,#0b192d,#12223a);border-radius:13px;border:1px solid #27394c;margin:18px 0 23px}.slider-field{margin:20px 0}.slider-label{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.slider-label span{font-weight:650}.value{font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums}.detail{font-size:12px;color:var(--muted);margin-top:6px}.presets{display:flex;flex-wrap:wrap;gap:8px}.preset{padding:7px 11px;border-radius:10px;color:#b6cbe9;background:#1c2c47;border:1px solid #2d435f;font-size:12px;font-weight:650}.preset.selected{color:#0d241d;border-color:var(--accent);background:var(--accent)}
+    .export-panel{margin-top:18px}.export-row{display:flex;gap:12px;flex-wrap:wrap}.btn{border-radius:11px;padding:12px 17px;font-weight:750;border:1px solid #3d526c;background:#1d2e49;color:#e7f1ff;display:inline-flex;align-items:center;justify-content:center;gap:8px;flex:1}.btn.primary{color:#0d251c;background:var(--accent);border-color:var(--accent)}.btn:hover:not(:disabled){filter:brightness(1.07)}.btn:disabled{opacity:.47;cursor:not-allowed}.msg{color:#9db5d6;margin-top:12px;font-size:12px;min-height:20px}.msg.error{color:var(--danger)}.progress{height:5px;background:#293955;border-radius:30px;overflow:hidden;margin-top:10px;display:none}.progress > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));width:0%;transition:width .15s}
+    .notes{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin:28px 0 0;color:var(--muted);font-size:12px}.notes span{display:flex;align-items:center;gap:6px}.notes svg{color:var(--accent)}
+    .fine{margin-top:12px;font-size:11px;color:#899cb9}.divider{border-top:1px solid var(--line);margin:19px 0}.footer{font-size:12px;color:var(--muted);text-align:center;margin-top:31px}
+    @media(max-width:820px){.page{padding:17px 14px 40px}.top{margin-bottom:38px}.main-grid{grid-template-columns:1fr}.hero h1{letter-spacing:-1.3px}.panel{padding:18px}.drop{min-height:156px}.wave{height:112px}.notes{gap:10px 20px}.export-panel{margin-top:16px}}
+    @media(max-width:480px){.export-row{flex-direction:column}.export-row .btn{min-height:47px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="top"><div class="brand"><div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M2 12h2l2-6 3 12 4-15 3 18 3-9h3"/></svg></div> BassForge</div><div class="status">● Local audio processing</div></header>
+    <div class="hero"><div class="eyebrow">Your sound, upgraded</div><h1>Feel the <span class="gradient">deep bass.</span><br>Hear every word.</h1><p>Turn an ordinary MP3 into fuller, richer sound with adjustable bass boost, vocal presence and smart compression. No account. No audio uploads.</p></div>
+    <label class="drop" id="drop" tabindex="0" role="button" aria-label="Choose or drop an audio file">
+      <svg width="31" height="31" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 16V3m0 0-4 4m4-4 4 4M4 17v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      <strong>Choose your MP3 or drop it here</strong><small>MP3, WAV, AAC, M4A and other browser-supported audio · processed on your device</small><input id="file" type="file" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg" /></label>
+    <div class="main-grid">
+      <section class="panel" aria-label="Audio preview">
+        <div class="section-head"><div><h2>Audio preview</h2><div class="sub">Hear your changes before exporting</div></div><span class="pill">LIVE EQ</span></div>
+        <div class="track-row"><div class="track-icon" aria-hidden="true">♫</div><div class="track-info"><div class="file-name" id="filename">No file selected</div><div class="sub" id="filemeta">Choose an audio file to begin</div></div></div>
+        <canvas id="wave" class="wave" height="140" aria-label="Live audio visualization"></canvas>
+        <div class="controls"><button id="play" class="play" disabled aria-label="Play audio">▶</button><div class="timeline"><input type="range" id="seek" min="0" max="1000" step="1" value="0" disabled aria-label="Playback position"/><div class="time-row"><span id="elapsed">0:00</span><span id="duration">0:00</span></div></div></div>
+        <div class="divider"></div>
+        <div class="section-head"><div><h2>Frequency enhancement</h2><div class="sub">Real-time response of your EQ settings</div></div></div>
+        <canvas class="eq" id="eq" height="168" aria-label="Equalizer frequency response graph"></canvas>
+        <div class="section-head"><div><h2>One-tap sound presets</h2><div class="sub">A great starting point — fine-tune below</div></div></div>
+        <div class="presets" id="presets"><button class="preset selected" data-preset="balanced">Balanced</button><button class="preset" data-preset="bass">Deep Bass</button><button class="preset" data-preset="voice">Vocal Focus</button><button class="preset" data-preset="club">Club Punch</button></div>
+      </section>
+      <section class="panel" aria-label="Audio enhancement controls"><div class="section-head"><div><h2>Sound controls</h2><div class="sub">Shape your signature sound</div></div><span style="color:var(--accent);font-size:22px" aria-hidden="true">≋</span></div>
+        <div class="slider-field"><div class="slider-label"><span>Deep bass</span><b class="value" id="bassValue">+5 dB</b></div><input type="range" id="bass" min="0" max="12" value="5" step="1" aria-label="Deep bass boost in decibels"/><div class="detail">Boost low frequencies for a deeper rumble.</div></div>
+        <div class="slider-field"><div class="slider-label"><span>Vocal clarity</span><b class="value" id="vocalValue">+3 dB</b></div><input type="range" id="vocal" min="0" max="9" value="3" step="1" aria-label="Vocal clarity boost in decibels"/><div class="detail">Enhance presence so voices stand out.</div></div>
+        <div class="slider-field"><div class="slider-label"><span>Remove muddiness</span><b class="value" id="mudValue">3 dB</b></div><input type="range" id="mud" min="0" max="8" value="3" step="1" aria-label="Low mid frequency reduction in decibels"/><div class="detail">Reduce low-mid buildup for a cleaner mix.</div></div>
+        <div class="slider-field"><div class="slider-label"><span>Sound intensity</span><b class="value" id="powerValue">50%</b></div><input type="range" id="power" min="0" max="100" value="50" step="10" aria-label="Sound intensity"/><div class="detail">Adjust dynamics and perceived loudness.</div></div>
+        <div class="divider"></div><div class="sub">The same EQ is applied to the saved file. Strong bass cannot restore missing frequencies, and EQ does not isolate vocals from music.</div>
+      </section>
+    </div>
+    <section class="panel export-panel" aria-label="Export processed audio"><div class="section-head"><div><h2>Download your enhanced audio</h2><div class="sub">Export the full track with your current settings</div></div></div>
+      <div class="export-row"><button class="btn primary" id="mp3" disabled><span aria-hidden="true">↓</span> Download MP3 (192 kbps)</button><button class="btn" id="wav" disabled><span aria-hidden="true">↓</span> Download WAV</button></div><div class="progress" id="progress"><div id="progressbar"></div></div><div class="msg" id="message" aria-live="polite">Choose an audio file to unlock export.</div><div class="fine">MP3 export uses the LAME JavaScript encoder, loaded from a CDN (internet required). WAV export works without that library. Files are never sent to a server.</div>
+    </section>
+    <div class="notes"><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 12 2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> Private and local</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v8l4 4M12 22a10 10 0 1 0-10-10"/></svg> Real-time preview</span><span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20"/></svg> Bass + clarity EQ</span></div>
+    <footer class="footer">BassForge · Built with the Web Audio API · Headphones recommended for testing</footer>
+    <audio id="audio" preload="metadata"></audio>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/lamejs@1.2.1/lame.all.js" async></script>
+  <script>
+  (() => {
+    'use strict';
+    const $ = (id) => document.getElementById(id);
+    const audio = $('audio'); let chosen=null, objectURL=null, ctx=null, source=null, fx=null, analyser=null, exporting=false;
+    const settingIds = ['bass','vocal','mud','power'];
+    const presets = {balanced:[5,3,3,50],bass:[10,3,5,65],voice:[2,7,5,45],club:[11,5,5,80]};
+    let frame=0;
+    function settings(){return {bass:+$('bass').value,vocal:+$('vocal').value,mud:+$('mud').value,power:+$('power').value};}
+    function setStatus(message,error=false){$('message').textContent=message;$('message').classList.toggle('error',error);}
+    function showProgress(pct){$('progress').style.display='block';$('progressbar').style.width=Math.max(0,Math.min(100,pct))+'%';}
+    function setExporting(value){exporting=value;$('mp3').disabled=value||!chosen;$('wav').disabled=value||!chosen;$('file').disabled=value;}
+    function time(t){if(!Number.isFinite(t))return '0:00';return Math.floor(t/60)+':'+('0'+Math.floor(t%60)).slice(-2);}
+    function fillSlider(e){const range=e.max-e.min; e.style.setProperty('--fill',((e.value-e.min)/range*100)+'%');}
+    function makeGraph(context,s){
+      const hp=context.createBiquadFilter(); hp.type='highpass';hp.frequency.value=28;hp.Q.value=.7;
+      const bass=context.createBiquadFilter(); bass.type='lowshelf';bass.frequency.value=105; bass.gain.value=s.bass;
+      const mud=context.createBiquadFilter();mud.type='peaking';mud.frequency.value=270;mud.Q.value=.87;mud.gain.value=-s.mud;
+      const voice=context.createBiquadFilter();voice.type='peaking';voice.frequency.value=3200;voice.Q.value=.75;voice.gain.value=s.vocal;
+      const air=context.createBiquadFilter();air.type='highshelf';air.frequency.value=8500;air.gain.value=s.vocal*.3;
+      const comp=context.createDynamicsCompressor();comp.threshold.value=-25+s.power*.12;comp.knee.value=15;comp.ratio.value=2+s.power*.022;comp.attack.value=.009;comp.release.value=.17;
+      const limit=context.createDynamicsCompressor();limit.threshold.value=-3;limit.knee.value=0;limit.ratio.value=18;limit.attack.value=.002;limit.release.value=.10;
+      const gain=context.createGain();gain.gain.value=.83+s.power*.0011;
+      const chain=[hp,bass,mud,voice,air,comp,limit,gain];chain.forEach((n,i)=>{if(i<chain.length-1)n.connect(chain[i+1]);});
+      return {input:hp,output:gain,bass,mud,voice,air,comp,gain,filters:[hp,bass,mud,voice,air]};
+    }
+    async function setupAudio(){
+      if(!ctx){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('This browser does not support Web Audio.');ctx=new AC();source=ctx.createMediaElementSource(audio);fx=makeGraph(ctx,settings());analyser=ctx.createAnalyser();analyser.fftSize=2048;source.connect(fx.input);fx.output.connect(analyser);analyser.connect(ctx.destination);}
+      if(ctx.state==='suspended')await ctx.resume();
+    }
+    function changeSettings(){
+      const s=settings();$('bassValue').textContent='+'+s.bass+' dB';$('vocalValue').textContent='+'+s.vocal+' dB';$('mudValue').textContent=s.mud+' dB';$('powerValue').textContent=s.power+'%';
+      settingIds.forEach(id=>fillSlider($(id)));
+      $('presets').querySelectorAll('button').forEach(btn=>{btn.classList.toggle('selected',JSON.stringify(presets[btn.dataset.preset])===JSON.stringify([s.bass,s.vocal,s.mud,s.power]));});
+      if(fx){const t=ctx.currentTime; fx.bass.gain.setTargetAtTime(s.bass,t,.04);fx.voice.gain.setTargetAtTime(s.vocal,t,.04);fx.mud.gain.setTargetAtTime(-s.mud,t,.04);fx.air.gain.setTargetAtTime(s.vocal*.3,t,.04);fx.comp.threshold.setTargetAtTime(-25+s.power*.12,t,.04);fx.comp.ratio.setTargetAtTime(2+s.power*.022,t,.04);fx.gain.gain.setTargetAtTime(.83+s.power*.0011,t,.04);}
+      drawEQ();
+    }
+    settingIds.forEach(id=>$(id).addEventListener('input',changeSettings));
+    $('presets').addEventListener('click',e=>{const btn=e.target.closest('button[data-preset]');if(!btn)return;presets[btn.dataset.preset].forEach((v,i)=>$(settingIds[i]).value=v);changeSettings();});
+    function chooseFile(file){
+      if(!file||exporting)return;
+      if(!(file.type.startsWith('audio/')||/\.(mp3|wav|aac|m4a|ogg|flac)$/i.test(file.name))){setStatus('Please choose an audio file.',true);return;}
+      if(file.size>150*1024*1024){setStatus('This file is too large for reliable in-browser processing (150 MB limit).',true);return;}
+      if(objectURL)URL.revokeObjectURL(objectURL);
+      audio.pause();chosen=file;objectURL=URL.createObjectURL(file);audio.src=objectURL;audio.load();
+      $('filename').textContent=file.name;$('filemeta').textContent=(file.size/1024/1024).toFixed(1)+' MB · '+(file.type||'Audio file');
+      $('play').disabled=false;$('wav').disabled=false;$('mp3').disabled=false;$('seek').disabled=false;$('seek').value=0;$('elapsed').textContent='0:00';$('duration').textContent='0:00';$('play').textContent='▶';
+      $('progress').style.display='none';setStatus('Ready. Play to preview the enhanced sound, or export.');
+    }
+    $('file').addEventListener('change',e=>chooseFile(e.target.files?.[0]));
+    const drop=$('drop');drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('file').click();}});
+    ['dragenter','dragover'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.add('drag');}));
+    ['dragleave','drop'].forEach(t=>drop.addEventListener(t,e=>{e.preventDefault();drop.classList.remove('drag');}));
+    drop.addEventListener('drop',e=>chooseFile(e.dataTransfer?.files?.[0]));
+    $('play').addEventListener('click',async()=>{if(!chosen)return;try{await setupAudio();if(audio.paused)await audio.play();else audio.pause();}catch(e){setStatus('Playback error: '+e.message,true);}});
+    audio.addEventListener('play',()=>{$('play').textContent='❚❚';$('play').setAttribute('aria-label','Pause audio');});
+    audio.addEventListener('pause',()=>{$('play').textContent='▶';$('play').setAttribute('aria-label','Play audio');});
+    audio.addEventListener('loadedmetadata',()=>{$('duration').textContent=time(audio.duration);});
+    audio.addEventListener('timeupdate',()=>{$('elapsed').textContent=time(audio.currentTime);if(Number.isFinite(audio.duration)&&audio.duration>0){$('seek').value=Math.round(audio.currentTime/audio.duration*1000);fillSlider($('seek'));}});
+    $('seek').addEventListener('input',()=>{if(Number.isFinite(audio.duration))audio.currentTime=audio.duration*(+$('seek').value/1000);fillSlider($('seek'));});
+    audio.addEventListener('error',()=>{if(chosen)setStatus('Browser cannot play this audio format. Try an MP3 or WAV file.',true);});
+    const waveCanvas=$('wave'),eqCanvas=$('eq');
+    function sizeCanvas(canvas){const dpr=Math.min(devicePixelRatio||1,2);const rect=canvas.getBoundingClientRect();const w=Math.max(50,Math.round(rect.width*dpr)),h=Math.max(50,Math.round(rect.height*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}return {g:canvas.getContext('2d'),w,h};}
+    function drawWave(){
+      const {g,w,h}=sizeCanvas(waveCanvas);g.clearRect(0,0,w,h);const bars=75;let data;if(analyser&&!audio.paused){data=new Uint8Array(analyser.frequencyBinCount);analyser.getByteFrequencyData(data);}
+      const gap=w/bars,barW=Math.max(2,gap*.57);
+      const grad=g.createLinearGradient(0,h,0,0);grad.addColorStop(0,'#568ef1');grad.addColorStop(.65,'#73f8c7');grad.addColorStop(1,'#a5ffe1');g.fillStyle=grad;
+      for(let i=0;i<bars;i++){let amp;if(data){const bin=Math.round(3+Math.pow(i/bars,1.8)*(data.length*.72));amp=Math.min(1,data[bin]/200);}else amp=.14+.2*(.5+.5*Math.sin(i*.29))*(.5+.5*Math.sin(i*.79));let bh=Math.max(4,amp*h*.83);let x=i*gap+gap*.22;g.fillRect(x,(h-bh)/2,barW,bh);}
+      frame=requestAnimationFrame(drawWave);
+    }
+    function drawEQ(){
+      const {g,w,h}=sizeCanvas(eqCanvas);g.clearRect(0,0,w,h);
+      g.strokeStyle='#2b3b55';g.lineWidth=1;for(let i=1;i<5;i++){let y=h*i/5;g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke();}
+      const freqLabels=[40,100,250,1000,4000,10000];for(let f of freqLabels){let x=(Math.log10(f)-Math.log10(20))/(Math.log10(20000)-Math.log10(20))*w;g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();g.fillStyle='#8097b6';g.font=`${Math.round(h*.064)}px system-ui`;g.fillText(f>=1000?(f/1000)+'k':String(f),x+4,h-6);}
+      const s=settings();let localFx=fx;const response=new Float32Array(160).map((_,i)=>20*Math.pow(1000,i/159));let db=new Float32Array(160);
+      if(localFx){for(const filter of localFx.filters){const mag=new Float32Array(response.length),phase=new Float32Array(response.length);filter.getFrequencyResponse(response,mag,phase);for(let i=0;i<db.length;i++)db[i]+=20*Math.log10(Math.max(.000001,mag[i]));}}
+      else{const c=ctx||new (window.OfflineAudioContext||window.webkitOfflineAudioContext)(1,1,44100);const tmp=makeGraph(c,s);for(const filter of tmp.filters){const mag=new Float32Array(response.length),phase=new Float32Array(response.length);filter.getFrequencyResponse(response,mag,phase);for(let i=0;i<db.length;i++)db[i]+=20*Math.log10(Math.max(.000001,mag[i]));}}
+      const minDB=-12,maxDB=17;const yFor=(v)=>h*.88-(v-minDB)/(maxDB-minDB)*h*.75;
+      g.strokeStyle='#6df4c4';g.lineWidth=Math.max(2,w/220);g.beginPath();for(let i=0;i<db.length;i++){let x=i/(db.length-1)*w,y=yFor(db[i]);if(!i)g.moveTo(x,y);else g.lineTo(x,y);}g.stroke();
+      let grad=g.createLinearGradient(0,0,0,h);grad.addColorStop(0,'#6df4c437');grad.addColorStop(1,'#6df4c403');g.fillStyle=grad;g.lineTo(w,h);g.lineTo(0,h);g.fill();
+    }
+    window.addEventListener('resize',()=>drawEQ());
+    async function renderAudio(){
+      if(!chosen)throw Error('Select a file first.');
+      setStatus('Decoding your audio locally…');showProgress(4);
+      const inputBytes=await chosen.arrayBuffer();
+      const AC=window.AudioContext||window.webkitAudioContext;
+      const decoder=new AC();let decoded;
+      try{decoded=await decoder.decodeAudioData(inputBytes);}finally{await decoder.close();}
+      if(decoded.duration>3600)throw Error('Track is too long for this browser tool (maximum 60 minutes).');
+      const sampleRate=44100, channels=Math.min(2,decoded.numberOfChannels),frames=Math.ceil(decoded.duration*sampleRate);
+      setStatus('Applying deep bass, vocal EQ and dynamics…');showProgress(18);
+      await new Promise(r=>setTimeout(r,25));
+      const Offline=window.OfflineAudioContext||window.webkitOfflineAudioContext; if(!Offline)throw Error('Offline audio rendering is not supported in this browser.');
+      const offline=new Offline(channels,frames,sampleRate);const b=offline.createBufferSource();b.buffer=decoded;
+      const effects=makeGraph(offline,settings());b.connect(effects.input);effects.output.connect(offline.destination);b.start();
+      const processed=await offline.startRendering();showProgress(52);return processed;
+    }
+    function saveBlob(blob,extension){const name=(chosen?.name||'enhanced-audio').replace(/\.[^.]+$/,'').replace(/[^\w .()\-]/g,'_');const a=document.createElement('a');const url=URL.createObjectURL(blob);a.href=url;a.download=name+'-BassForge.'+extension;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}
+    function writeWav(buffer){
+      const count=buffer.length,nch=buffer.numberOfChannels,rate=buffer.sampleRate;const bytes=new ArrayBuffer(44+count*nch*2),v=new DataView(bytes);let o=0;
+      function str(t){for(const ch of t)v.setUint8(o++,ch.charCodeAt(0));}function u32(n){v.setUint32(o,n,true);o+=4;}function u16(n){v.setUint16(o,n,true);o+=2;}
+      str('RIFF');u32(bytes.byteLength-8);str('WAVE');str('fmt ');u32(16);u16(1);u16(nch);u32(rate);u32(rate*nch*2);u16(nch*2);u16(16);str('data');u32(count*nch*2);
+      let channels=Array.from({length:nch},(_,i)=>buffer.getChannelData(i));
+      for(let i=0;i<count;i++)for(let j=0;j<nch;j++){let x=Math.max(-1,Math.min(1,channels[j][i]));v.setInt16(o,x<0?x*32768:x*32767,true);o+=2;}
+      return new Blob([bytes],{type:'audio/wav'});
+    }
+    async function writeMp3(buffer){
+      if(!window.lamejs?.Mp3Encoder)throw Error('MP3 encoder is unavailable. Connect to the internet and reload, or download WAV instead.');
+      const channels=buffer.numberOfChannels,rate=buffer.sampleRate,encoder=new lamejs.Mp3Encoder(channels,rate,192);
+      const left=buffer.getChannelData(0),right=channels===2?buffer.getChannelData(1):null,chunks=[];
+      const block=1152,total=Math.ceil(buffer.length/block);
+      for(let start=0,step=0;start<buffer.length;start+=block,step++){
+        let len=Math.min(block,buffer.length-start),l=new Int16Array(len),r=right?new Int16Array(len):null;
+        for(let i=0;i<len;i++){let v=Math.max(-1,Math.min(1,left[start+i]));l[i]=v<0?v*32768:v*32767;if(r){v=Math.max(-1,Math.min(1,right[start+i]));r[i]=v<0?v*32768:v*32767;}}
+        const mp3=right?encoder.encodeBuffer(l,r):encoder.encodeBuffer(l);if(mp3.length)chunks.push(new Uint8Array(mp3));
+        if(step%45===0){showProgress(55+Math.round(43*step/total));setStatus('Encoding MP3 locally… '+Math.round(step/total*100)+'%');await new Promise(resolve=>setTimeout(resolve,0));}
+      }
+      const tail=encoder.flush();if(tail.length)chunks.push(new Uint8Array(tail));
+      return new Blob(chunks,{type:'audio/mpeg'});
+    }
+    async function exportFile(format){if(exporting||!chosen)return;setExporting(true);showProgress(0);
+      try{
+        if(format==='mp3'&&!window.lamejs?.Mp3Encoder)throw Error('MP3 encoder needs an internet connection. Try refreshing online, or use WAV export.');
+        const buffer=await renderAudio();let blob;
+        if(format==='mp3'){blob=await writeMp3(buffer);}else{setStatus('Creating WAV file…');showProgress(75);await new Promise(resolve=>setTimeout(resolve,25));blob=writeWav(buffer);}
+        saveBlob(blob,format);showProgress(100);setStatus('Done! Your '+format.toUpperCase()+' download has started.');
+      }catch(e){setStatus(e?.message||'Unable to process this file. Try a shorter MP3 or a WAV.',true);$('progress').style.display='none';console.error(e);}finally{setExporting(false);}
+    }
+    $('mp3').addEventListener('click',()=>exportFile('mp3'));
+    $('wav').addEventListener('click',()=>exportFile('wav'));
+    changeSettings();drawWave();
+  })();
+  </script>
+</body>
+</html>
